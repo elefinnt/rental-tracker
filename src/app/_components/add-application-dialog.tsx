@@ -20,12 +20,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { RentalApplication } from "@/app/page";
+import type { RentalApplication } from "@/types/rental";
+import { api } from "@/trpc/react";
 
 interface AddApplicationDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onAdd: (application: Omit<RentalApplication, "id" | "createdAt">) => void;
+  onAdd: (
+    application: Omit<RentalApplication, "id" | "createdAt" | "updatedAt">,
+  ) => void;
 }
 
 export function AddApplicationDialog({
@@ -44,6 +47,9 @@ export function AddApplicationDialog({
     status: "not-applying" as RentalApplication["status"],
   });
 
+  // Fetch users for the viewer dropdown
+  const { data: users = [] } = api.users.getAll.useQuery();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -59,7 +65,7 @@ export function AddApplicationDialog({
       link: formData.link,
       viewingDate,
       viewer: formData.viewer,
-      notes: formData.notes,
+      notes: formData.notes || null,
       status: formData.status,
     });
 
@@ -158,16 +164,41 @@ export function AddApplicationDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="viewer">Who's Viewing *</Label>
-            <Input
-              id="viewer"
-              value={formData.viewer}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, viewer: e.target.value }))
-              }
-              placeholder="e.g., John & Sarah"
-              required
-            />
+            <Label htmlFor="viewer">Who&apos;s Viewing *</Label>
+            {users.length > 0 ? (
+              <Select
+                value={formData.viewer}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({ ...prev, viewer: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a viewer" />
+                </SelectTrigger>
+                <SelectContent>
+                  {users.map((user) => (
+                    <SelectItem key={user.id} value={user.firstName}>
+                      {user.firstName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="space-y-2">
+                <Input
+                  id="viewer"
+                  value={formData.viewer}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, viewer: e.target.value }))
+                  }
+                  placeholder="e.g., John & Sarah"
+                  required
+                />
+                <p className="text-muted-foreground text-sm">
+                  No users found. Add users in Settings to use the dropdown.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

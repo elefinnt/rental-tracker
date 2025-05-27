@@ -1,4 +1,4 @@
-// Example model schema from the Drizzle docs
+// Database schema for the rental tracker application
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
@@ -14,16 +14,25 @@ export const createTable = mysqlTableCreator(
   (name) => `rental-tracker_${name}`,
 );
 
-// export const posts = createTable(
-//   "post",
-//   (d) => ({
-//     id: d.bigint({ mode: "number" }).primaryKey().autoincrement(),
-//     name: d.varchar({ length: 256 }),
-//     createdAt: d
-//       .timestamp()
-//       .default(sql`CURRENT_TIMESTAMP`)
-//       .notNull(),
-//     updatedAt: d.timestamp().onUpdateNow(),
-//   }),
-//   (t) => [index("name_idx").on(t.name)],
-// );
+export const users = createTable("user", (d) => ({
+  id: d.bigint({ mode: "number" }).primaryKey().autoincrement(),
+  firstName: d.varchar({ length: 256 }).notNull(),
+}));
+
+export const rentalApplications = createTable(
+  "rental_application",
+  (d) => ({
+    id: d.bigint({ mode: "number" }).primaryKey().autoincrement(),
+    name: d.varchar({ length: 256 }).notNull(),
+    address: d.varchar({ length: 512 }).notNull(),
+    link: d.varchar({ length: 1024 }).notNull(),
+    viewingDate: d.timestamp(),
+    viewer: d.varchar({ length: 256 }).notNull(),
+    notes: d.text(),
+    status: d
+      .mysqlEnum(["not-applying", "applied", "rejected"])
+      .notNull()
+      .default("not-applying"),
+  }),
+  (t) => [index("name_idx").on(t.name), index("status_idx").on(t.status)],
+);

@@ -19,7 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { RentalApplication } from "@/app/page";
+import type { RentalApplication } from "@/types/rental";
 import { EditApplicationDialog } from "./edit-application-dialog";
 
 interface ApplicationCardProps {

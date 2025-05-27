@@ -20,7 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { RentalApplication } from "@/app/page";
+import type { RentalApplication } from "@/types/rental";
+import { api } from "@/trpc/react";
 
 interface EditApplicationDialogProps {
   application: RentalApplication;
@@ -46,6 +47,9 @@ export function EditApplicationDialog({
     status: "not-applying" as RentalApplication["status"],
   });
 
+  // Fetch users for the viewer dropdown
+  const { data: users = [] } = api.users.getAll.useQuery();
+
   // Populate form when dialog opens
   useEffect(() => {
     if (open && application) {
@@ -54,10 +58,14 @@ export function EditApplicationDialog({
         name: application.name,
         address: application.address,
         link: application.link,
-        viewingDate: viewingDate ? viewingDate.toISOString().split("T")[0] : "",
-        viewingTime: viewingDate ? viewingDate.toTimeString().slice(0, 5) : "",
+        viewingDate: viewingDate
+          ? (new Date(viewingDate).toISOString().split("T")[0] ?? "")
+          : "",
+        viewingTime: viewingDate
+          ? (new Date(viewingDate).toTimeString().slice(0, 5) ?? "")
+          : "",
         viewer: application.viewer,
-        notes: application.notes,
+        notes: application.notes ?? "",
         status: application.status,
       });
     }
@@ -78,7 +86,7 @@ export function EditApplicationDialog({
       link: formData.link,
       viewingDate,
       viewer: formData.viewer,
-      notes: formData.notes,
+      notes: formData.notes || null,
       status: formData.status,
     });
 
@@ -165,16 +173,41 @@ export function EditApplicationDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-viewer">Who's Viewing *</Label>
-            <Input
-              id="edit-viewer"
-              value={formData.viewer}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, viewer: e.target.value }))
-              }
-              placeholder="e.g., John & Sarah"
-              required
-            />
+            <Label htmlFor="edit-viewer">Who&apos;s Viewing *</Label>
+            {users.length > 0 ? (
+              <Select
+                value={formData.viewer}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({ ...prev, viewer: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a viewer" />
+                </SelectTrigger>
+                <SelectContent>
+                  {users.map((user) => (
+                    <SelectItem key={user.id} value={user.firstName}>
+                      {user.firstName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="space-y-2">
+                <Input
+                  id="edit-viewer"
+                  value={formData.viewer}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, viewer: e.target.value }))
+                  }
+                  placeholder="e.g., John & Sarah"
+                  required
+                />
+                <p className="text-muted-foreground text-sm">
+                  No users found. Add users in Settings to use the dropdown.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

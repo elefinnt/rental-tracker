@@ -6,67 +6,60 @@ import { Button } from "@/components/ui/button";
 import { SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { ApplicationCard } from "./_components/application-card";
 import { AddApplicationDialog } from "./_components/add-application-dialog";
-
-export interface RentalApplication {
-  id: string;
-  name: string;
-  address: string;
-  link: string;
-  viewingDate?: Date;
-  viewer: string;
-  notes: string;
-  status: "not-applying" | "applied" | "rejected";
-  createdAt: Date;
-}
+import { api } from "@/trpc/react";
+import type { RentalApplication } from "@/types/rental";
 
 export default function Dashboard() {
-  const [applications, setApplications] = useState<RentalApplication[]>([
-    {
-      id: "1",
-      name: "Modern 2BR Apartment",
-      address: "123 Oak Street, Downtown",
-      link: "https://example.com/listing1",
-      viewingDate: new Date("2024-01-15T14:00:00"),
-      viewer: "John & Sarah",
-      notes: "Great location, close to metro. Ask about parking.",
-      status: "applied",
-      createdAt: new Date("2024-01-10"),
-    },
-    {
-      id: "2",
-      name: "Cozy Studio",
-      address: "456 Pine Avenue, Midtown",
-      link: "https://example.com/listing2",
-      viewer: "John",
-      notes: "Small but well-designed. Good for single person.",
-      status: "not-applying",
-      createdAt: new Date("2024-01-12"),
-    },
-  ]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
+  // tRPC queries and mutations
+  const {
+    data: applications = [],
+    isLoading,
+    refetch,
+  } = api.rental.getAll.useQuery();
+  const createMutation = api.rental.create.useMutation({
+    onSuccess: () => {
+      void refetch();
+      setIsAddDialogOpen(false);
+    },
+  });
+  const updateMutation = api.rental.update.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+  const deleteMutation = api.rental.delete.useMutation({
+    onSuccess: () => {
+      void refetch();
+    },
+  });
+
   const addApplication = (
-    application: Omit<RentalApplication, "id" | "createdAt">,
+    application: Omit<RentalApplication, "id" | "createdAt" | "updatedAt">,
   ) => {
-    const newApplication: RentalApplication = {
+    createMutation.mutate({
       ...application,
-      id: Date.now().toString(),
-      createdAt: new Date(),
-    };
-    setApplications((prev) => [newApplication, ...prev]);
+      viewingDate: application.viewingDate ?? undefined,
+      notes: application.notes,
+    });
   };
 
   const updateApplication = (
     id: string,
     updates: Partial<RentalApplication>,
   ) => {
-    setApplications((prev) =>
-      prev.map((app) => (app.id === id ? { ...app, ...updates } : app)),
-    );
+    const { id: _, ...updateData } = updates;
+    updateMutation.mutate({
+      id: parseInt(id),
+      ...updateData,
+      viewingDate: updateData.viewingDate ?? undefined,
+      notes: updateData.notes,
+    });
   };
 
   const deleteApplication = (id: string) => {
-    setApplications((prev) => prev.filter((app) => app.id !== id));
+    deleteMutation.mutate({ id: parseInt(id) });
   };
 
   return (
@@ -117,18 +110,11 @@ export default function Dashboard() {
         </div>
 
         {/* Applications grid */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          {applications.map((application) => (
-            <ApplicationCard
-              key={application.id}
-              application={application}
-              onUpdate={updateApplication}
-              onDelete={deleteApplication}
-            />
-          ))}
-        </div>
-
-        {applications.length === 0 && (
+        {isLoading ? (
+          <div className="py-12 text-center">
+            <div className="text-muted-foreground">Loading applications...</div>
+          </div>
+        ) : applications.length === 0 ? (
           <div className="py-12 text-center">
             <div className="text-muted-foreground mb-4">
               No rental applications yet
@@ -137,6 +123,17 @@ export default function Dashboard() {
               <Plus className="mr-2 h-4 w-4" />
               Add Your First Property
             </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+            {applications.map((application) => (
+              <ApplicationCard
+                key={application.id}
+                application={application}
+                onUpdate={updateApplication}
+                onDelete={deleteApplication}
+              />
+            ))}
           </div>
         )}
 
