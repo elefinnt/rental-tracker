@@ -14,16 +14,16 @@ export const createTable = mysqlTableCreator(
   (name) => `rental-tracker_${name}`,
 );
 
-export const posts = createTable(
-  "post",
-  (d) => ({
-    id: d.bigint({ mode: "number" }).primaryKey().autoincrement(),
-    name: d.varchar({ length: 256 }),
-    createdAt: d
-      .timestamp()
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: d.timestamp().onUpdateNow(),
-  }),
-  (t) => [index("name_idx").on(t.name)],
-);
+// export const posts = createTable(
+//   "post",
+//   (d) => ({
+//     id: d.bigint({ mode: "number" }).primaryKey().autoincrement(),
+//     name: d.varchar({ length: 256 }),
+//     createdAt: d
+//       .timestamp()
+//       .default(sql`CURRENT_TIMESTAMP`)
+//       .notNull(),
+//     updatedAt: d.timestamp().onUpdateNow(),
+//   }),
+//   (t) => [index("name_idx").on(t.name)],
+// );
