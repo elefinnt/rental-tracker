@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
+import { TRPCReactProvider } from "@/trpc/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SidebarProvider>
-          <AppSidebar />
-          {children}
-        </SidebarProvider>
+        <TRPCReactProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            {children}
+          </SidebarProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );
