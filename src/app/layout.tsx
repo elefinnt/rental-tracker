@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Rental Tracker",
   description: "Track your house rental applications and viewings",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
