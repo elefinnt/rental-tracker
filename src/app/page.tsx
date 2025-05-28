@@ -153,13 +153,13 @@ export default function Dashboard() {
             title="Total Properties"
             value={totalProperties}
             icon={Home}
-            trend={{ value: 12, isPositive: true }}
+            // trend={{ value: 12, isPositive: true }}
           />
           <StatsCard
             title="Applied"
             value={appliedCount}
             icon={FileText}
-            trend={{ value: 8, isPositive: true }}
+            // trend={{ value: 8, isPositive: true }}
           />
           <StatsCard
             title="Upcoming Viewings"
