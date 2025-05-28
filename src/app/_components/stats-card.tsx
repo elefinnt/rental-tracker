@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface StatsCardProps {
   title: string;
@@ -11,6 +12,7 @@ interface StatsCardProps {
     isPositive: boolean;
   };
   className?: string;
+  href?: string;
 }
 
 export function StatsCard({
@@ -19,9 +21,10 @@ export function StatsCard({
   icon: Icon,
   trend,
   className,
+  href,
 }: StatsCardProps) {
-  return (
-    <Card className={cn("group relative overflow-hidden", className)}>
+  const content = (
+    <>
       <div className="from-primary/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
       <CardContent className="relative p-6">
         <div className="flex items-center justify-between">
@@ -47,6 +50,18 @@ export function StatsCard({
           </div>
         </div>
       </CardContent>
+    </>
+  );
+
+  return (
+    <Card className={cn("group relative overflow-hidden", className)}>
+      {href ? (
+        <Link href={href} className="block">
+          {content}
+        </Link>
+      ) : (
+        content
+      )}
     </Card>
   );
 }

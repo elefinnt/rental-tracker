@@ -22,21 +22,21 @@ const menuItems = [
     icon: Home,
     url: "/",
   },
-  {
-    title: "Properties",
-    icon: Building2,
-    url: "/properties",
-  },
+  // {
+  //   title: "Properties",
+  //   icon: Building2,
+  //   url: "/properties",
+  // },
   {
     title: "Calendar",
     icon: Calendar,
     url: "/calendar",
   },
-  {
-    title: "Applications",
-    icon: FileText,
-    url: "/applications",
-  },
+  // {
+  //   title: "Applications",
+  //   icon: FileText,
+  //   url: "/applications",
+  // },
   {
     title: "Settings",
     icon: Settings,

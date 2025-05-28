@@ -165,13 +165,14 @@ export default function Dashboard() {
             title="Upcoming Viewings"
             value={upcomingViewings}
             icon={Calendar}
+            href="/calendar"
           />
         </div>
 
         {/* Main content */}
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Applications grid */}
-          <div>
+          <div className="w-full max-w-full">
             <h2 className="mb-4 text-lg font-semibold">Your Properties</h2>
             {isLoading ? (
               <div className="py-12 text-center">
@@ -214,7 +215,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right column */}
-          <div className="space-y-6">
+          <div className="w-full max-w-full space-y-6">
             <QuickActions actions={quickActions} />
             <RecentActivity activities={recentActivity} />
           </div>
