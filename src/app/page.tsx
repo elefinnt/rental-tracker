@@ -101,7 +101,7 @@ export default function Dashboard() {
       return activities;
     })
     .flat()
-    .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+    .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
     .slice(0, 5);
 
   // Quick actions

@@ -1,29 +1,122 @@
-# Create T3 App
+# Rental Property Tracker
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A modern web application built with Next.js and TypeScript to help users track their rental property applications, viewings, and status updates. This project demonstrates my skills in full-stack development, focusing on React, Next.js, and modern web technologies.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- 📱 **Responsive Dashboard**: Clean, modern interface with dark mode support
+- 🏠 **Property Management**: Track multiple rental properties and their applications
+- 📅 **Viewing Calendar**: Schedule and manage property viewings
+- 📊 **Status Tracking**: Monitor application status (Applied, Rejected, Not Applying)
+- 🔍 **Quick Actions**: Fast access to common tasks
+- 📝 **Notes & Details**: Store important information about each property
+- 🔗 **External Links**: Direct access to property listings
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- **Frontend**:
 
-## Learn More
+  - Next.js 15 (App Router)
+  - React 19
+  - TypeScript
+  - Tailwind CSS
+  - Radix UI Components
+  - Lucide Icons
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- **Backend**:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+  - tRPC for type-safe API
+  - Drizzle ORM
+  - MySQL Database
+  - Zod for validation
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- **Development**:
+  - ESLint & Prettier
+  - pnpm for package management
+  - TypeScript for type safety
 
-## How do I deploy this?
+## Getting Started
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+1. **Prerequisites**
+
+   - Node.js 18+
+   - pnpm
+   - MySQL
+
+2. **Installation**
+
+   ```bash
+   # Clone the repository
+   git clone [repository-url]
+
+   # Install dependencies
+   pnpm install
+
+   # Set up environment variables
+   cp .env.example .env
+   ```
+
+3. **Database Setup**
+
+   You have two options for setting up the database:
+
+   **Option 1: Railway (Recommended)**
+
+   ```bash
+   # I used Railway for the mySQL database - so instructions are below
+   # Create a new project on Railway.app
+   # Add a MySQL database to your project
+   # Copy the DATABASE_URL from Railway's dashboard
+   # Add it to your .env file:
+   DATABASE_URL="mysql://..."
+   ```
+
+4. **Development**
+   ```bash
+   # Start the development server
+   pnpm dev
+   ```
+
+## Project Structure
+
+```
+src/
+├── app/                 # Next.js app router pages
+├── components/          # Shared UI components
+├── server/             # Backend logic
+│   ├── api/           # tRPC API routes
+│   └── db/            # Database schema and configuration
+└── types/             # TypeScript type definitions
+```
+
+## Key Features Implementation
+
+- **Type-Safe API**: Using tRPC for end-to-end type safety
+- **Modern UI**: Built with Radix UI and Tailwind CSS
+- **Responsive Design**: Mobile-first approach with fluid layouts
+- **State Management**: React Query for server state
+- **Form Handling**: Built-in form validation with Zod
+
+## Development Experience
+
+This project demonstrates my experience with:
+
+- Modern React patterns and hooks
+- Next.js App Router and server components
+- TypeScript for type safety
+- Database design and ORM usage
+- API design and implementation
+- UI/UX best practices
+- Responsive design principles
+
+## Future Improvements
+
+- [ ] User authentication
+- [ ] Email notifications
+- [ ] Property image uploads
+- [ ] Advanced filtering and search
+- [ ] Mobile app version
+
+## License
+
+MIT
