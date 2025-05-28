@@ -116,7 +116,7 @@ export function ApplicationCard({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="h-3 w-3" />
+                <ExternalLink className="h-6 w-6" />
               </a>
             </Button>
           </div>

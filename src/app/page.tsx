@@ -118,18 +118,18 @@ export default function Dashboard() {
       icon: Calendar,
       onClick: () => (window.location.href = "/calendar"),
     },
-    {
-      title: "View Properties",
-      description: "See all your tracked properties",
-      icon: Building2,
-      onClick: () => (window.location.href = "/properties"),
-    },
-    {
-      title: "View Applications",
-      description: "Check your application status",
-      icon: FileText,
-      onClick: () => (window.location.href = "/applications"),
-    },
+    // {
+    //   title: "View Properties",
+    //   description: "See all your tracked properties",
+    //   icon: Building2,
+    //   onClick: () => (window.location.href = "/properties"),
+    // },
+    // {
+    //   title: "View Applications",
+    //   description: "Check your application status",
+    //   icon: FileText,
+    //   onClick: () => (window.location.href = "/applications"),
+    // },
   ];
 
   return (
@@ -145,10 +145,6 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <Button onClick={() => setIsAddDialogOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Property
-          </Button>
         </div>
 
         {/* Stats overview */}
@@ -207,6 +203,7 @@ export default function Dashboard() {
                   <Button
                     variant="outline"
                     className="w-full"
+                    disabled
                     onClick={() => (window.location.href = "/applications")}
                   >
                     View All Properties
