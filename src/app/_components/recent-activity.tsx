@@ -5,7 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 
 interface Activity {
   id: string;
-  type: "viewing" | "application" | "status";
+  type: "viewing" | "application" | "status" | "property" | "notes";
   title: string;
   description: string;
   timestamp: Date;
