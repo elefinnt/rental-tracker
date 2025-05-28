@@ -41,6 +41,7 @@ export const rentalRouter = createTRPCRouter({
   create: publicProcedure
     .input(createRentalApplicationSchema)
     .mutation(async ({ ctx, input }) => {
+      const now = new Date();
       const [newApplication] = await ctx.db.insert(rentalApplications).values({
         name: input.name,
         address: input.address,
@@ -49,6 +50,8 @@ export const rentalRouter = createTRPCRouter({
         viewer: input.viewer,
         notes: input.notes,
         status: input.status,
+        createdAt: now,
+        updatedAt: now,
       });
 
       const [createdApplication] = await ctx.db
@@ -71,10 +74,14 @@ export const rentalRouter = createTRPCRouter({
     .input(updateRentalApplicationSchema)
     .mutation(async ({ ctx, input }) => {
       const { id, ...updateData } = input;
+      const now = new Date();
 
       await ctx.db
         .update(rentalApplications)
-        .set(updateData)
+        .set({
+          ...updateData,
+          updatedAt: now,
+        })
         .where(eq(rentalApplications.id, id));
 
       // Fetch the updated application

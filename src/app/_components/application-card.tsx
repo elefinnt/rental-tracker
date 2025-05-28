@@ -71,8 +71,8 @@ export function ApplicationCard({
     <>
       <Card className="transition-shadow hover:shadow-md">
         <CardHeader className="pb-3">
-          <div className="flex items-start justify-between">
-            <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
               <h3 className="truncate text-lg font-semibold">
                 {application.name}
               </h3>
@@ -83,7 +83,11 @@ export function ApplicationCard({
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 w-8 flex-shrink-0 p-0"
+                >
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -106,17 +110,17 @@ export function ApplicationCard({
 
         <CardContent className="space-y-3">
           {/* Status and link */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <Badge className={getStatusColor(application.status)}>
               {getStatusLabel(application.status)}
             </Badge>
-            <Button variant="ghost" size="sm" asChild>
+            <Button variant="ghost" size="sm" className="flex-shrink-0" asChild>
               <a
                 href={application.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink className="h-3 w-3" />
+                <ExternalLink className="h-6 w-6" />
               </a>
             </Button>
           </div>
@@ -124,15 +128,17 @@ export function ApplicationCard({
           {/* Viewing date */}
           {application.viewingDate && (
             <div className="flex items-center text-sm">
-              <Calendar className="text-muted-foreground mr-2 h-4 w-4" />
-              <span>Viewing: {formatDate(application.viewingDate)}</span>
+              <Calendar className="text-muted-foreground mr-2 h-4 w-4 flex-shrink-0" />
+              <span className="truncate">
+                Viewing: {formatDate(application.viewingDate)}
+              </span>
             </div>
           )}
 
           {/* Viewer */}
           <div className="flex items-center text-sm">
-            <User className="text-muted-foreground mr-2 h-4 w-4" />
-            <span>Viewer: {application.viewer}</span>
+            <User className="text-muted-foreground mr-2 h-4 w-4 flex-shrink-0" />
+            <span className="truncate">Viewer: {application.viewer}</span>
           </div>
 
           {/* Notes */}

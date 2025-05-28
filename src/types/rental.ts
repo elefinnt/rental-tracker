@@ -7,6 +7,8 @@ export interface RentalApplication {
   viewer: string;
   notes: string | null;
   status: "not-applying" | "applied" | "rejected";
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export type CreateRentalApplicationInput = Omit<
