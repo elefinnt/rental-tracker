@@ -78,7 +78,14 @@ export function ApplicationCard({
               </h3>
               <div className="text-muted-foreground mt-1 flex items-center text-sm">
                 <MapPin className="mr-1 h-3 w-3 flex-shrink-0" />
-                <span className="truncate">{application.address}</span>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(application.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="truncate hover:underline"
+                >
+                  {application.address}
+                </a>
               </div>
             </div>
             <DropdownMenu>

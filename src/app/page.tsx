@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, Calendar, FileText, Home, Plus } from "lucide-react";
+import { Calendar, FileText, Home, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { ApplicationCard } from "./_components/application-card";
@@ -11,6 +11,7 @@ import type { RentalApplication } from "@/types/rental";
 import { StatsCard } from "./_components/stats-card";
 import { QuickActions } from "./_components/quick-actions";
 import { RecentActivity } from "./_components/recent-activity";
+import { generateRecentActivities } from "./_components/recent-activity-generator";
 
 export default function Dashboard() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -75,34 +76,7 @@ export default function Dashboard() {
   ).length;
 
   // Generate recent activity
-  const recentActivity = applications
-    .map((app) => {
-      const activities = [];
-      const now = new Date();
-
-      if (app.viewingDate) {
-        activities.push({
-          id: `viewing-${app.id}`,
-          type: "viewing" as const,
-          title: "Viewing Scheduled",
-          description: `Viewing scheduled for ${app.address}`,
-          timestamp: app.viewingDate,
-        });
-      }
-
-      activities.push({
-        id: `status-${app.id}`,
-        type: "status" as const,
-        title: "Status Updated",
-        description: `Application status changed to ${app.status} for ${app.address}`,
-        timestamp: now,
-      });
-
-      return activities;
-    })
-    .flat()
-    .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
-    .slice(0, 5);
+  const recentActivity = generateRecentActivities(applications);
 
   // Quick actions
   const quickActions = [
