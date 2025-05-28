@@ -33,6 +33,8 @@ export const rentalApplications = createTable(
       .mysqlEnum(["not-applying", "applied", "rejected"])
       .notNull()
       .default("not-applying"),
+    createdAt: d.timestamp().notNull().defaultNow(),
+    updatedAt: d.timestamp().notNull().defaultNow(),
   }),
   (t) => [index("name_idx").on(t.name), index("status_idx").on(t.status)],
 );
