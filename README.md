@@ -112,10 +112,9 @@ This project demonstrates my experience with:
 ## Future Improvements
 
 - [ ] User authentication
-- [ ] Email notifications
-- [ ] Property image uploads
+- [ ] Direct api access to rental listings - specifically tradeMe property
 - [ ] Advanced filtering and search
-- [ ] Mobile app version
+- [ ] Better Mobile App Enhancements
 
 ## License
 
