@@ -15,7 +15,7 @@ import { api } from "@/trpc/react";
 import type { RentalApplication } from "@/types/rental";
 
 interface CalendarEvent {
-  id: string;
+  id: number;
   title: string;
   date: Date;
   type: "viewing" | "deadline" | "follow-up";
