@@ -149,14 +149,14 @@ export default function PropertyPage({ params }: PropertyPageProps) {
             </div>
             <div className="flex items-center gap-2">
               <ExternalLink className="text-muted-foreground h-4 w-4" />
-              <a
+              <Link
                 href={property.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
                 View Listing
-              </a>
+              </Link>
             </div>
             {property.viewingDate && (
               <div className="flex items-center gap-2">

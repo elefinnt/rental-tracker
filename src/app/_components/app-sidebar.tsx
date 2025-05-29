@@ -43,7 +43,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar>
+    <Sidebar variant="floating" collapsible="offcanvas">
       <SidebarHeader className="p-6">
         <div className="flex items-center gap-2">
           <Building2 className="text-primary h-6 w-6" />
@@ -66,23 +66,13 @@ export function AppSidebar() {
                     isActive={pathname === item.url}
                     className="hover:bg-accent mx-2 rounded-lg transition-colors"
                   >
-                    {item.url === "#" ? (
-                      <a
-                        href={item.url}
-                        className="flex items-center gap-3 px-3 py-2"
-                      >
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
-                      </a>
-                    ) : (
-                      <Link
-                        href={item.url}
-                        className="flex items-center gap-3 px-3 py-2"
-                      >
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
-                      </Link>
-                    )}
+                    <Link
+                      href={item.url}
+                      className="flex items-center gap-3 px-3 py-2"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
