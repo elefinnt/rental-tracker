@@ -106,7 +106,7 @@ export function AddApplicationDialog({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="address">Address *</Label>
+            <Label htmlFor="address">Address</Label>
             <Input
               id="address"
               value={formData.address}
@@ -114,7 +114,6 @@ export function AddApplicationDialog({
                 setFormData((prev) => ({ ...prev, address: e.target.value }))
               }
               placeholder="e.g., 123 Oak Street, Downtown"
-              required
             />
           </div>
 

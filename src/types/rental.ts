@@ -1,5 +1,5 @@
 export interface RentalApplication {
-  id: string;
+  id: string | number;
   name: string;
   address: string;
   link: string;

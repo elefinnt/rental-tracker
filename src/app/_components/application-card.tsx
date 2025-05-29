@@ -104,7 +104,7 @@ export function ApplicationCard({
                   Edit
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => onDelete(application.id)}
+                  onClick={() => onDelete(application.id.toString())}
                   className="text-red-600"
                 >
                   <Trash2 className="mr-2 h-4 w-4" />

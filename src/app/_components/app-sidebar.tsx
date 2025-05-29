@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Calendar, FileText, Settings, Building2 } from "lucide-react";
+import { Home, Calendar, Settings, Building2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -22,21 +22,16 @@ const menuItems = [
     icon: Home,
     url: "/",
   },
-  // {
-  //   title: "Properties",
-  //   icon: Building2,
-  //   url: "/properties",
-  // },
+  {
+    title: "Properties",
+    icon: Building2,
+    url: "/properties",
+  },
   {
     title: "Calendar",
     icon: Calendar,
     url: "/calendar",
   },
-  // {
-  //   title: "Applications",
-  //   icon: FileText,
-  //   url: "/applications",
-  // },
   {
     title: "Settings",
     icon: Settings,

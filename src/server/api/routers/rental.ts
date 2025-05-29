@@ -7,7 +7,7 @@ import { rentalApplications } from "@/server/db/schema";
 // Zod schema for rental application input validation
 const createRentalApplicationSchema = z.object({
   name: z.string().min(1, "Name is required").max(256),
-  address: z.string().min(1, "Address is required").max(512),
+  address: z.string().max(512).default(""),
   link: z.string().url("Must be a valid URL").max(1024),
   viewingDate: z.date().optional(),
   viewer: z.string().min(1, "Viewer is required").max(256),
@@ -26,15 +26,10 @@ const updateRentalApplicationSchema = createRentalApplicationSchema
 export const rentalRouter = createTRPCRouter({
   // Get all rental applications
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const applications = await ctx.db
+    return await ctx.db
       .select()
       .from(rentalApplications)
       .orderBy(rentalApplications.name);
-
-    return applications.map((app) => ({
-      ...app,
-      id: app.id.toString(),
-    }));
   }),
 
   // Create a new rental application

@@ -178,8 +178,7 @@ export default function Dashboard() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    disabled
-                    onClick={() => (window.location.href = "/applications")}
+                    onClick={() => (window.location.href = "/properties")}
                   >
                     View All Properties
                   </Button>
