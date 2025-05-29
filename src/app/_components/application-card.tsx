@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { RentalApplication } from "@/types/rental";
 import { EditApplicationDialog } from "./edit-application-dialog";
+import Link from "next/link";
 
 interface ApplicationCardProps {
   application: RentalApplication;
@@ -78,14 +79,14 @@ export function ApplicationCard({
               </h3>
               <div className="text-muted-foreground mt-1 flex items-center text-sm">
                 <MapPin className="mr-1 h-3 w-3 flex-shrink-0" />
-                <a
+                <Link
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(application.address)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="truncate hover:underline"
                 >
                   {application.address}
-                </a>
+                </Link>
               </div>
             </div>
             <DropdownMenu>
@@ -122,13 +123,13 @@ export function ApplicationCard({
               {getStatusLabel(application.status)}
             </Badge>
             <Button variant="ghost" size="sm" className="flex-shrink-0" asChild>
-              <a
+              <Link
                 href={application.link}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <ExternalLink className="h-6 w-6" />
-              </a>
+              </Link>
             </Button>
           </div>
 

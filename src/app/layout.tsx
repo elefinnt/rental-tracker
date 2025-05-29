@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
 import { TRPCReactProvider } from "@/trpc/react";
 
@@ -22,12 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="">
+    <html lang="en">
       <body className={inter.className}>
         <TRPCReactProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            {children}
+          <SidebarProvider defaultOpen={true}>
+            <div className="flex min-h-screen">
+              <AppSidebar />
+              <div className="flex-1">
+                {/* Mobile header with trigger */}
+                <div className="flex h-14 items-center border-b px-4 md:hidden">
+                  <SidebarTrigger />
+                </div>
+                <main className="flex-1">{children}</main>
+              </div>
+            </div>
           </SidebarProvider>
         </TRPCReactProvider>
       </body>
