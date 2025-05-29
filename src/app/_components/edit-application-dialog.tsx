@@ -80,7 +80,7 @@ export function EditApplicationDialog({
       viewingDate = new Date(`${formData.viewingDate}T${formData.viewingTime}`);
     }
 
-    onUpdate(application.id, {
+    onUpdate(application.id.toString(), {
       name: formData.name,
       address: formData.address,
       link: formData.link,
